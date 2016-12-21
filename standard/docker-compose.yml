@@ -1,0 +1,16 @@
+version: "2"
+services:
+  app-1:
+    build:
+      context: ./app
+  app-2:
+    build:
+      context: ./app
+  nginx:
+    build:
+      context: ./proxy
+    ports:
+      - "3000:80"
+    links:
+      - app-1
+      - app-2

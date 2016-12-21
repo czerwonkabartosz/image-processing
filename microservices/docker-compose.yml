@@ -1,0 +1,25 @@
+version: "2"
+services:
+  image-service-1:
+    build:
+      context: ./service
+    links:
+      - etcd
+  image-service-2:
+    build:
+      context: ./service
+    links:
+      - etcd
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3000:3000"
+    links:
+      - etcd
+      - image-service-1
+      - image-service-2
+  etcd:
+    image: elcolio/etcd
+    expose:
+      - "2379"
